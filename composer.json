@@ -1,0 +1,14 @@
+{
+    "name": "robertogallea/restado",
+    "description": "Client for Tado REST API",
+    "authors": [
+        {
+            "name": "Roberto Gallea",
+            "email": "write@robertogallea.com"
+        }
+    ],
+	"minimum-stability": "dev",
+    "require": {
+        "league/oauth2-client": "^2.2"
+    }
+}
