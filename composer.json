@@ -10,5 +10,10 @@
 	"minimum-stability": "dev",
     "require": {
         "league/oauth2-client": "^2.2"
+    },
+	"autoload": {
+        "psr-4": {
+            "Restado\\": "src/Restado/"
+        }
     }
 }
