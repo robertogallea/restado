@@ -16,8 +16,8 @@ The package is also integrated within Laravel.
  1. [Installation](#1-installation)
  2. [Updating](#2-updating)
  3. [Usage](#3-usage)
- 4. [Supported Methods](#4-supported_methods)
- 5. [Issues, Questions and Pull Requests](#8-issues-questions-and-pull-requests)
+ 4. [Supported Methods](#4-supported-methods)
+ 5. [Issues, Questions and Pull Requests](#5-issues-questions-and-pull-requests)
  
  ## 1. Installation
  
