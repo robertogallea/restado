@@ -55,7 +55,7 @@ The package is also integrated within Laravel.
 1. To update this package,  update the composer package:
 
     ```php
-    composer update robertogalea/restado
+    composer update robertogallea/restado
     ```    
     
 ## 3. Usage    
