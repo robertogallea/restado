@@ -9,9 +9,10 @@ PHP and Laravel library for managing Tado system
 
 This package provides a simple interface towards the public Tado Thermostat System API. It wraps the web methods available for authenticating users and retrieve information from the local devices. 
 
-Currently, information are only readable, soon I will extend the library in order to edit settings.
-
 The package is also integrated within Laravel.
+
+Since the API is currently officially undocumented, if you are aware of methods missing in this library, please inform me!
+
 
  1. [Installation](#1-installation)
  2. [Updating](#2-updating)
