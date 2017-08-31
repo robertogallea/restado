@@ -88,8 +88,8 @@ Currently these methods are supported:
 - getHomeUsers($token,$home_id);
 - getHomeMobileDevices($token,$home_id);
 - deleteHomeMobileDevice(token,$home_id,$mobile_device_id)
-- getHomeMobileDeviceSetting($token,$home_id,$mobile_device_id);
-- setHomeMobileDeviceSetting($token,$home_id,$mobile_device_id,$settings)
+- getHomeMobileDeviceSettings($token,$home_id,$mobile_device_id);
+- setHomeMobileDeviceSettings($token,$home_id,$mobile_device_id,$settings)
 - getHomeZones($token,$home_id);
 - getHomeZoneState($token,$home_id,$zone_id);
 - getHomeZoneCapabilities($token,$home_id,$zone_id);

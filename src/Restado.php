@@ -137,7 +137,7 @@ class Restado {
     }
 
 
-    public function getHomeMobileDeviceSetting($accessToken,$homeid,$deviceId) {
+    public function getHomeMobileDeviceSettings($accessToken,$homeid,$deviceId) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -150,7 +150,7 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function setHomeMobileDeviceSetting($accessToken,$homeid,$deviceId,$settings) {
+    public function setHomeMobileDeviceSettings($accessToken,$homeid,$deviceId,$settings) {
         $provider = $this->getProvider();
 
         $options['body'] = json_encode($settings);
