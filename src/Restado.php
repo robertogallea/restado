@@ -128,7 +128,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'DELETE',
-            'https://my.tado.com/api/v2/homes/' . $homeid . '/mobileDevices/' . $deviceId . '/settings',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/mobileDevices/' . $deviceId,
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
