@@ -371,6 +371,19 @@ class Restado {
         return json_decode($response->getBody());
     }
 
+    public function getAppUsersRelativePositions($accessToken) {
+        $provider = $this->getProvider();
+
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            'https://my.tado.com/mobile/1.9/getAppUsersRelativePositions',
+            $accessToken
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+
     public function identifyDevice($accessToken,$deviceid) {
         $provider = $this->getProvider();
 
