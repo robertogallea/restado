@@ -80,7 +80,7 @@ each method returns an object containing the data from the server. Currently the
 ## 4. Supported Methods
 Currently these methods are supported:
 - authorize();
-- Restado::me($token);
+- me($token);
 - getHome($token,$home_id);
 - getHomeWeather($token,$home_id);
 - getHomeDevices($token,$home_id);
