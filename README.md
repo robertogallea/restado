@@ -105,6 +105,7 @@ Currently these methods are supported:
 - getHomeZoneScheduleTimetableBlocks($token,$home_id,$zone_id,$timetable_id,$pattern=null);
 - setHomeZoneScheduleTimetableBlocks($token,$home_id,$zone_id,$timetable_id,$pattern,$settings);
 - identifyDevice($token,$device_id);        
+- getAppUsersRelativePositions($token)
 
 ## 5. Issues, Questions and Pull Requests
 
