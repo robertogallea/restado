@@ -86,15 +86,23 @@ Currently these methods are supported:
 - getHomeInstallations($token,$home_id);
 - getHomeUsers($token,$home_id);
 - getHomeMobileDevices($token,$home_id);
+- deleteHomeMobileDevice(token,$home_id,$mobile_device_id)
 - getHomeMobileDeviceSetting($token,$home_id,$mobile_device_id);
+- setHomeMobileDeviceSetting($token,$home_id,$mobile_device_id,$settings)
 - getHomeZones($token,$home_id);
 - getHomeZoneState($token,$home_id,$zone_id);
 - getHomeZoneCapabilities($token,$home_id,$zone_id);
 - getHomeZoneEarlyStart($token,$home_id,$zone_id);
+- setHomeZoneEarlyStart($token,$home_id,$zone_id,$settings);
 - getHomeZoneOverlay($token,$home_id,$zone_id);
-- getHomeZoneScheduleActive($token,$home_id,$zone_id);
+- setHomeZoneOverlay($token,$home_id,$zone_id,$settings);
+- deleteHomeZoneOverlay($token,$home_id,$zone_id);
+- getHomeZoneScheduleActiveTimetable($token,$home_id,$zone_id);
+- setHomeZoneScheduleActiveTimetable($token,$home_id,$zone_id,$settings);
 - getHomeZoneScheduleAway($token,$home_id,$zone_id);
+- setHomeZoneScheduleAway($token,$home_id,$zone_id,$settings);
 - getHomeZoneScheduleTimetableBlocks($token,$home_id,$zone_id,$timetable_id,$pattern=null);
+- setHomeZoneScheduleTimetableBlocks($token,$home_id,$zone_id,$timetable_id,$pattern,$settings);
 - identifyDevice($token,$device_id);        
 
 ## 5. Issues, Questions and Pull Requests
