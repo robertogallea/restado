@@ -403,10 +403,6 @@ class Restado {
         return new GenericProvider([
             'clientId'                => env('TADO_CLIENT_ID','public-api-preview'),    // The client ID assigned to you by the provider
             'clientSecret'            => env('TADO_SECRET','4HJGRffVR8xb3XdEUQpjgZ1VplJi6Xgw'),   // The client password assigned to you by the provider
-//            'redirectUri'             => 'http://example.com/your-redirect-url/',
-            'urlAuthorize'            => 'http://brentertainment.com/oauth2/lockdin/authorize',
-            'urlAccessToken'          => 'https://auth.tado.com/oauth/token',
-            'urlResourceOwnerDetails' => 'http://brentertainment.com/oauth2/lockdin/resource'
         ]);
     }
 }
