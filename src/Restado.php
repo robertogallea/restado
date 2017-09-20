@@ -10,15 +10,15 @@ namespace Robertogallea\Restado;
 
 use League\OAuth2\Client\Provider\GenericProvider;
 
+/**
+ * Class Restado
+ * @package Robertogallea\Restado
+ */
 class Restado {
 
-    /*
-     * authorize
-     *
-     * authenticate to tado system and acquire an access token for the user
-     *
-     * @param array $data access credentials if not specified in .env
-     * @return string
+    /**
+     * @param array $data
+     * @return \League\OAuth2\Client\Token\AccessToken
      */
     public function authorize($data = [])
     {
@@ -41,6 +41,10 @@ class Restado {
         }
     }
 
+    /**
+     * @param $accessToken
+     * @return mixed
+     */
     public function me($accessToken) {
         $provider = $this->getProvider();
 
@@ -54,7 +58,12 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHome($accessToken,$homeid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @return mixed
+     */
+    public function getHome($accessToken, $homeid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -67,7 +76,12 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHomeWeather($accessToken,$homeid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @return mixed
+     */
+    public function getHomeWeather($accessToken, $homeid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -80,7 +94,12 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHomeDevices($accessToken,$homeid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @return mixed
+     */
+    public function getHomeDevices($accessToken, $homeid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -93,7 +112,12 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHomeInstallations($accessToken,$homeid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @return mixed
+     */
+    public function getHomeInstallations($accessToken, $homeid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -106,7 +130,12 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHomeUsers($accessToken,$homeid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @return mixed
+     */
+    public function getHomeUsers($accessToken, $homeid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -119,7 +148,12 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHomeMobileDevices($accessToken,$homeid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @return mixed
+     */
+    public function getHomeMobileDevices($accessToken, $homeid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -132,7 +166,13 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function deleteHomeMobileDevice($accessToken,$homeid,$deviceId) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $deviceId
+     * @return mixed
+     */
+    public function deleteHomeMobileDevice($accessToken, $homeid, $deviceId) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -146,7 +186,13 @@ class Restado {
     }
 
 
-    public function getHomeMobileDeviceSettings($accessToken,$homeid,$deviceId) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $deviceId
+     * @return mixed
+     */
+    public function getHomeMobileDeviceSettings($accessToken, $homeid, $deviceId) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -159,7 +205,14 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function setHomeMobileDeviceSettings($accessToken,$homeid,$deviceId,$settings) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $deviceId
+     * @param $settings
+     * @return mixed
+     */
+    public function setHomeMobileDeviceSettings($accessToken, $homeid, $deviceId, $settings) {
         $provider = $this->getProvider();
 
         $options['body'] = json_encode($settings);
@@ -176,7 +229,12 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHomeZones($accessToken,$homeid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @return mixed
+     */
+    public function getHomeZones($accessToken, $homeid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -189,7 +247,13 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHomeZoneState($accessToken,$homeid,$zoneid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @return mixed
+     */
+    public function getHomeZoneState($accessToken, $homeid, $zoneid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -202,7 +266,13 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHomeZoneCapabilities($accessToken,$homeid,$zoneid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @return mixed
+     */
+    public function getHomeZoneCapabilities($accessToken, $homeid, $zoneid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -215,7 +285,13 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHomeZoneEarlyStart($accessToken,$homeid,$zoneid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @return mixed
+     */
+    public function getHomeZoneEarlyStart($accessToken, $homeid, $zoneid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -228,7 +304,14 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function setHomeZoneEarlyStart($accessToken,$homeid,$zoneid,$settings) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @param $settings
+     * @return mixed
+     */
+    public function setHomeZoneEarlyStart($accessToken, $homeid, $zoneid, $settings) {
         $provider = $this->getProvider();
 
         $options['body'] = json_encode($settings);
@@ -246,7 +329,13 @@ class Restado {
     }
 
 
-    public function getHomeZoneOverlay($accessToken,$homeid,$zoneid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @return mixed
+     */
+    public function getHomeZoneOverlay($accessToken, $homeid, $zoneid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -259,7 +348,14 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function setHomeZoneOverlay($accessToken,$homeid,$zoneid,$settings) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @param $settings
+     * @return mixed
+     */
+    public function setHomeZoneOverlay($accessToken, $homeid, $zoneid, $settings) {
         $provider = $this->getProvider();
 
         $options['body'] = json_encode($settings);
@@ -276,7 +372,13 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function deleteHomeZoneOverlay($accessToken,$homeid,$zoneid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @return mixed
+     */
+    public function deleteHomeZoneOverlay($accessToken, $homeid, $zoneid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -289,7 +391,13 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHomeZoneScheduleActiveTimetable($accessToken,$homeid,$zoneid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @return mixed
+     */
+    public function getHomeZoneScheduleActiveTimetable($accessToken, $homeid, $zoneid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -302,7 +410,14 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function setHomeZoneScheduleActiveTimetable($accessToken,$homeid,$zoneid,$settings) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @param $settings
+     * @return mixed
+     */
+    public function setHomeZoneScheduleActiveTimetable($accessToken, $homeid, $zoneid, $settings) {
         $provider = $this->getProvider();
 
         $options['body'] = json_encode($settings);
@@ -319,7 +434,13 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHomeZoneScheduleAway($accessToken,$homeid,$zoneid) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @return mixed
+     */
+    public function getHomeZoneScheduleAway($accessToken, $homeid, $zoneid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -332,7 +453,14 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function setHomeZoneScheduleAway($accessToken,$homeid,$zoneid,$settings) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @param $settings
+     * @return mixed
+     */
+    public function setHomeZoneScheduleAway($accessToken, $homeid, $zoneid, $settings) {
         $provider = $this->getProvider();
 
 
@@ -350,7 +478,15 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function getHomeZoneScheduleTimetableBlocks($accessToken,$homeid,$zoneid,$timetableid,$daypattern=null) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @param $timetableid
+     * @param null $daypattern
+     * @return mixed
+     */
+    public function getHomeZoneScheduleTimetableBlocks($accessToken, $homeid, $zoneid, $timetableid, $daypattern=null) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -363,7 +499,16 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function setHomeZoneScheduleTimetableBlocks($accessToken,$homeid,$zoneid,$timetableid,$daypattern,$settings) {
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @param $timetableid
+     * @param $daypattern
+     * @param $settings
+     * @return mixed
+     */
+    public function setHomeZoneScheduleTimetableBlocks($accessToken, $homeid, $zoneid, $timetableid, $daypattern, $settings) {
         $provider = $this->getProvider();
 
         $options['body'] = json_encode($settings);
@@ -380,6 +525,10 @@ class Restado {
         return json_decode($response->getBody());
     }
 
+    /**
+     * @param $accessToken
+     * @return mixed
+     */
     public function getAppUsersRelativePositions($accessToken) {
         $provider = $this->getProvider();
 
@@ -393,7 +542,12 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-    public function identifyDevice($accessToken,$deviceid) {
+    /**
+     * @param $accessToken
+     * @param $deviceid
+     * @return bool
+     */
+    public function identifyDevice($accessToken, $deviceid) {
         $provider = $this->getProvider();
 
         $request = $provider->getAuthenticatedRequest(
@@ -407,7 +561,9 @@ class Restado {
     }
 
 
-
+    /**
+     * @return GenericProvider
+     */
     private function getProvider() {
         return new GenericProvider([
             'clientId'                => env('TADO_CLIENT_ID','public-api-preview'),    // The client ID assigned to you by the provider
