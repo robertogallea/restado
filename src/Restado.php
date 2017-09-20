@@ -76,6 +76,7 @@ class Restado {
         return json_decode($response->getBody());
     }
 
+
     /**
      * @param $accessToken
      * @param $homeid
