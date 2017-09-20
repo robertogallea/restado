@@ -11,6 +11,15 @@ namespace Robertogallea\Restado;
 use League\OAuth2\Client\Provider\GenericProvider;
 
 class Restado {
+
+    /*
+     * authorize
+     *
+     * authenticate to tado system and acquire an access token for the user
+     *
+     * @param array $data access credentials if not specified in .env
+     * @return string
+     */
     public function authorize($data = [])
     {
         $provider = $this->getProvider();
