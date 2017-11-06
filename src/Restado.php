@@ -561,6 +561,95 @@ class Restado {
         return $response->getStatusCode() == 200;
     }
 
+    /**
+     * @param $accessToken
+     * @param $deviceid
+     * @return mixed
+     */
+    public function getTemperatureOffset($accessToken, $deviceid) {
+        $provider = $this->getProvider();
+
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            'https://my.tado.com/api/v2/devices/' .  $deviceid . '/temperatureOffset',
+            $accessToken
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+
+    /**
+     * @param $accessToken
+     * @param $deviceid
+     * @param $settings
+     * @return bool
+     */
+    public function setTemperatureOffset($accessToken, $deviceid, $settings) {
+        $provider = $this->getProvider();
+
+        $options['body'] = json_encode($settings);
+        $options['headers']['content-type'] = 'application/json';
+
+        $request = $provider->getAuthenticatedRequest(
+            'PUT',
+            'https://my.tado.com/api/v2/devices/' .  $deviceid . '/temperatureOffset',
+            $accessToken,
+            $options
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @param $setting
+     * @return bool
+     */
+    public function setDazzle($accessToken, $homeid, $zoneid, $setting) {
+        $provider = $this->getProvider();
+
+        $options['body'] = json_encode(['enabled' => $setting]);
+        $options['headers']['content-type'] = 'application/json';
+
+        $request = $provider->getAuthenticatedRequest(
+            'POST',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/dazzle',
+            $accessToken,
+            $options
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return $response->getStatusCode() == 200;
+    }
+
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @param $settings
+     * @return bool
+     */
+    public function setOpenWindowDetection($accessToken, $homeid, $zoneid, $settings) {
+        $provider = $this->getProvider();
+
+        $options['body'] = json_encode($settings);
+        $options['headers']['content-type'] = 'application/json';
+
+        $request = $provider->getAuthenticatedRequest(
+            'POST',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/openWindowDetection',
+            $accessToken,
+            $options
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return $response->getStatusCode() == 200;
+    }
+
 
     /**
      * @return GenericProvider
