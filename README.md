@@ -92,6 +92,7 @@ Currently these methods are supported:
 - setHomeMobileDeviceSettings($token,$home_id,$mobile_device_id,$settings)
 - getHomeZones($token,$home_id);
 - getHomeZoneState($token,$home_id,$zone_id);
+- getHomeZoneDayReport($token,$home_id,$zone_id,date);
 - getHomeZoneCapabilities($token,$home_id,$zone_id);
 - getHomeZoneEarlyStart($token,$home_id,$zone_id);
 - setHomeZoneEarlyStart($token,$home_id,$zone_id,$settings);

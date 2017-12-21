@@ -273,6 +273,25 @@ class Restado {
      * @param $zoneid
      * @return mixed
      */
+    public function getHomeZoneDayReport($accessToken, $homeid, $zoneid, $date) {
+        $provider = $this->getProvider();
+
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/dayReport?date=' . $date,
+            $accessToken
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $zoneid
+     * @return mixed
+     */
     public function getHomeZoneCapabilities($accessToken, $homeid, $zoneid) {
         $provider = $this->getProvider();
 
