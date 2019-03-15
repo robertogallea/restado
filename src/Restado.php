@@ -51,7 +51,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/me',
+            'https://my.tado.com/api/v2/me',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -69,7 +69,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid,
+            'https://my.tado.com/api/v2/homes/' . $homeid,
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -88,7 +88,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/weather/',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/weather/',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -106,7 +106,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/devices/',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/devices/',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -124,7 +124,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/installations/',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/installations/',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -142,7 +142,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/users/',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/users/',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -160,7 +160,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/mobileDevices/',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/mobileDevices/',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -179,7 +179,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'DELETE',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/mobileDevices/' . $deviceId,
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/mobileDevices/' . $deviceId,
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -199,7 +199,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/mobileDevices/' . $deviceId . '/settings',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/mobileDevices/' . $deviceId . '/settings',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -222,7 +222,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'PUT',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/mobileDevices/' . $deviceId . '/settings',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/mobileDevices/' . $deviceId . '/settings',
             $accessToken,
             $options
         );
@@ -241,7 +241,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -260,7 +260,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/state',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/state',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -279,7 +279,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/dayReport?date=' . $date,
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/dayReport?date=' . $date,
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -298,7 +298,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/capabilities',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/capabilities',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -317,7 +317,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/earlyStart',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/earlyStart',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -340,7 +340,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'PUT',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/earlyStart',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/earlyStart',
             $accessToken,
             $options
         );
@@ -361,7 +361,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/overlay',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/overlay',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -384,7 +384,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'PUT',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/overlay',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/overlay',
             $accessToken,
             $options
         );
@@ -404,7 +404,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'DELETE',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/overlay',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/overlay',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -423,7 +423,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/schedule/activeTimetable',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/schedule/activeTimetable',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -446,7 +446,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'PUT',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/schedule/activeTimetable',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/schedule/activeTimetable',
             $accessToken,
             $options
         );
@@ -466,7 +466,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/schedule/awayConfiguration',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/schedule/awayConfiguration',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -490,7 +490,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'PUT',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/schedule/awayConfiguration',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/schedule/awayConfiguration',
             $accessToken,
             $options
         );
@@ -512,7 +512,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/schedule/timetables/' . $timetableid . '/blocks' . (!is_null($daypattern) ? ('/' . $daypattern) : ''),
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/schedule/timetables/' . $timetableid . '/blocks' . (!is_null($daypattern) ? ('/' . $daypattern) : ''),
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -537,7 +537,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/schedule/timetables/' . $timetableid . '/blocks' . (!is_null($daypattern) ? ('/' . $daypattern) : ''),
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/schedule/timetables/' . $timetableid . '/blocks' . (!is_null($daypattern) ? ('/' . $daypattern) : ''),
             $accessToken,
             $options
         );
@@ -555,7 +555,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/mobile/1.9/getAppUsersRelativePositions',
+            'https://my.tado.com/mobile/1.9/getAppUsersRelativePositions',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -573,7 +573,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'POST',
-            'https://auth.tado.com/api/v2/devices/' .  $deviceid . '/identify',
+            'https://my.tado.com/api/v2/devices/' .  $deviceid . '/identify',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -591,7 +591,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://auth.tado.com/api/v2/devices/' .  $deviceid . '/temperatureOffset',
+            'https://my.tado.com/api/v2/devices/' .  $deviceid . '/temperatureOffset',
             $accessToken
         );
         $client = new \GuzzleHttp\Client();
@@ -613,7 +613,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'PUT',
-            'https://auth.tado.com/api/v2/devices/' .  $deviceid . '/temperatureOffset',
+            'https://my.tado.com/api/v2/devices/' .  $deviceid . '/temperatureOffset',
             $accessToken,
             $options
         );
@@ -637,7 +637,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'POST',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/dazzle',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/dazzle',
             $accessToken,
             $options
         );
@@ -661,7 +661,7 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'POST',
-            'https://auth.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/openWindowDetection',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/zones/' . $zoneid . '/openWindowDetection',
             $accessToken,
             $options
         );
@@ -678,7 +678,7 @@ class Restado {
         return new GenericProvider([
             'clientId'                => env('TADO_CLIENT_ID','public-api-preview'),    // The client ID assigned to you by the provider
             'clientSecret'            => env('TADO_SECRET','4HJGRffVR8xb3XdEUQpjgZ1VplJi6Xgw'),   // The client password assigned to you by the provider
-            'urlAuthorize'            => 'https://auth.tado.com/oauth/token',
+            'urlAuthorize'            => 'https://auth.tado.com/oauth/authorize',
             'urlAccessToken'          => 'https://auth.tado.com/oauth/token',
             'urlResourceOwnerDetails' => null,
         ]);
