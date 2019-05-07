@@ -16,9 +16,10 @@ Since the API is currently officially undocumented, if you are aware of methods 
 
  1. [Installation](#1-installation)
  2. [Updating](#2-updating)
- 3. [Usage](#3-usage)
- 4. [Supported Methods](#4-supported-methods)
- 5. [Issues, Questions and Pull Requests](#5-issues-questions-and-pull-requests)
+ 3. [Configuration] (#3-configuration)
+ 4. [Usage](#4-usage)
+ 5. [Supported Methods](#5-supported-methods)
+ 6. [Issues, Questions and Pull Requests](#6-issues-questions-and-pull-requests)
  
  ## 1. Installation
  
@@ -59,7 +60,16 @@ Since the API is currently officially undocumented, if you are aware of methods 
     composer update robertogallea/restado
     ```    
     
-## 3. Usage    
+## 3. Configuration
+    
+1. To use Restado, no further configuration is required. However, if you wish to tweak with config, publish the relative
+ configuration file using the command
+
+```php
+php artisan vendor:publish --provider="Robertogallea\Restado\RestadoServiceProvider" --tag=config
+```
+    
+## 4. Usage    
 To use this package you should use the method of the Restado facade. 
 
 1. Obtain a valid token for your session:
@@ -77,7 +87,7 @@ To use this package you should use the method of the Restado facade.
 each method returns an object containing the data from the server. Currently the API is not officially documented, the only reference I found is at this page: http://blog.scphillips.com/posts/2017/01/the-tado-api-v2/
 
  
-## 4. Supported Methods
+## 5. Supported Methods
 Currently these methods are supported:
 - authorize();
 - me($token);
@@ -112,7 +122,7 @@ Currently these methods are supported:
 - setOpenWindowDetection($accessToken, $homeid, $zoneid, $settings)
 - getAppUsersRelativePositions($token)
 
-## 5. Issues, Questions and Pull Requests
+## 6. Issues, Questions and Pull Requests
 
 You can report issues and ask questions in the [issues section](https://github.com/robertogallea/restado/issues). Please start your issue with `ISSUE: ` and your question with `QUESTION: `
 

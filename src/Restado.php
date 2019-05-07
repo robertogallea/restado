@@ -28,8 +28,8 @@ class Restado {
 
             // Try to get an access token using the resource owner password credentials grant.
             $accessToken = $provider->getAccessToken('password', [
-                'username' => env('TADO_USER'),
-                'password' => env('TADO_PASS'),
+                'username' =>config('tado.username'),
+                'password' => config('tado.password'),
                 'scope' => 'home.user',
             ]);
             return $accessToken;
@@ -676,8 +676,8 @@ class Restado {
      */
     private function getProvider() {
         return new GenericProvider([
-            'clientId'                => env('TADO_CLIENT_ID','public-api-preview'),    // The client ID assigned to you by the provider
-            'clientSecret'            => env('TADO_SECRET','4HJGRffVR8xb3XdEUQpjgZ1VplJi6Xgw'),   // The client password assigned to you by the provider
+            'clientId'                => config('tado.clientId'),    // The client ID assigned to you by the provider
+            'clientSecret'            => config('tado.clientSecret'),   // The client password assigned to you by the provider
             'urlAuthorize'            => 'https://auth.tado.com/oauth/authorize',
             'urlAccessToken'          => 'https://auth.tado.com/oauth/token',
             'urlResourceOwnerDetails' => null,

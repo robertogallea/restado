@@ -14,7 +14,7 @@ class RestadoServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->publishConfig();
     }
 
     /**
@@ -28,5 +28,21 @@ class RestadoServiceProvider extends ServiceProvider
         {
             return new Restado();
         });
+    }
+
+    private function publishConfig()
+    {
+        $configPath = $this->packagePath('config/tado.php');
+
+        $this->publishes([
+            $configPath => config_path('tado.php'),
+        ], 'config');
+
+        $this->mergeConfigFrom($configPath, 'tado');
+    }
+
+    private function packagePath($path)
+    {
+        return __DIR__."/$path";
     }
 }
