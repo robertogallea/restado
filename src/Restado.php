@@ -77,25 +77,6 @@ class Restado {
         return json_decode($response->getBody());
     }
 
-
-    /**
-     * @param $accessToken
-     * @param $homeid
-     * @return mixed
-     */
-    public function getHomeWeather($accessToken, $homeid) {
-        $provider = $this->getProvider();
-
-        $request = $provider->getAuthenticatedRequest(
-            'GET',
-            'https://my.tado.com/api/v2/homes/' . $homeid . '/weather/',
-            $accessToken
-        );
-        $client = new \GuzzleHttp\Client();
-        $response = $client->send($request);
-        return json_decode($response->getBody());
-    }
-
     /**
      * @param $accessToken
      * @param $homeid
@@ -113,6 +94,24 @@ class Restado {
             'https://my.tado.com/api/v2/homes/' . $homeid,
             $accessToken,
             $options
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @return mixed
+     */
+    public function getHomeWeather($accessToken, $homeid) {
+        $provider = $this->getProvider();
+
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/weather/',
+            $accessToken
         );
         $client = new \GuzzleHttp\Client();
         $response = $client->send($request);
