@@ -670,6 +670,46 @@ class Restado {
         return $response->getStatusCode() == 200;
     }
 
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @return mixed
+     */
+    public function getPresenceLock($accessToken, $homeid) {
+        $provider = $this->getProvider();
+
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/state',
+            $accessToken
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+    
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @param $settings
+     * @return mixed
+     */
+    public function setPresenceLock($accessToken, $homeid, $settings) {
+        $provider = $this->getProvider();
+
+        $options['body'] = json_encode($settings);
+        $options['headers']['content-type'] = 'application/json';
+
+        $request = $provider->getAuthenticatedRequest(
+            'PUT',
+            'https://my.tado.com/api/v2/homes/' . $homeid . '/presenceLock',
+            $accessToken,
+            $options
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
 
     /**
      * @return GenericProvider
