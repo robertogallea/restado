@@ -92,6 +92,7 @@ Currently these methods are supported:
 - authorize();
 - me($token);
 - getHome($token,$home_id);
+- setHome($accessToken, $homeid, $settings);
 - getHomeWeather($token,$home_id);
 - getHomeDevices($token,$home_id);
 - getHomeInstallations($token,$home_id);
