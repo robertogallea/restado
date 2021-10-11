@@ -671,16 +671,16 @@ class Restado {
     }
 
     /**
-     * @param $accessToken
-     * @param $homeid
+     * @param $access_token
+     * @param $home_id
      * @return mixed
      */
-    public function isAnyoneAtHome($accessToken, $homeid) {
+    public function isAnyoneAtHome($access_token, $home_id) {
         $provider = $this->getProvider();
 
         $anyoneAtHome = false;
 
-        $homeUsers = $this->getHomeUsers($accessToken, $homeid);
+        $homeUsers = $this->getHomeUsers($access_token, $home_id);
         foreach($homeUsers as $homeUser) {
             foreach($homeUser->mobileDevices as $device) {
                 $anyoneAtHome = $device->location->atHome == 1;
