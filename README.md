@@ -120,6 +120,8 @@ Currently these methods are supported:
 - setTemperatureOffset($accessToken, $deviceid, $settings)
 - setDazzle($accessToken, $homeid, $zoneid, $setting)
 - setOpenWindowDetection($accessToken, $homeid, $zoneid, $settings)
+- getPresenceLock($accessToken, $homeid)
+- setPresenceLock($accessToken, $homeid, $settings)
 - getAppUsersRelativePositions($token)
 
 ## 6. Issues, Questions and Pull Requests
