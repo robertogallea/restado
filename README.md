@@ -48,7 +48,8 @@ Since the API is currently officially undocumented, if you are aware of methods 
     TADO_CLIENT_ID=<TADO_APP_ID>       // defaults to public-api-preview
     TADO_SECRET=<TADO_APP_SECRET_KEY>  // defaults to 4HJGRffVR8xb3XdEUQpjgZ1VplJi6Xgw                                                      
     TADO_USER=<TADO_USER>
-    TADO_PASS=<TADO_PASSWORD>  
+    TADO_PASS=<TADO_PASSWORD>
+    TADO_HOME_ID=<TADO_HOME_ID>
     ```
     
     
