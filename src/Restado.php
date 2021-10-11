@@ -670,6 +670,25 @@ class Restado {
         return $response->getStatusCode() == 200;
     }
 
+    /**
+     * @param $accessToken
+     * @param $homeid
+     * @return mixed
+     */
+    public function isAnyoneAtHome($accessToken, $homeid) {
+        $provider = $this->getProvider();
+
+        $anyoneAtHome = false;
+
+        $homeUsers = $this->getHomeUsers($accessToken, $homeid);
+        foreach($homeUsers as $homeUser) {
+            foreach($homeUser->mobileDevices as $device) {
+                $anyoneAtHome = $device->location->atHome == 1;
+            }
+        }
+
+        return $anyoneAtHome;
+    }
 
     /**
      * @return GenericProvider
