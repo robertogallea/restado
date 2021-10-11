@@ -78,12 +78,12 @@ class Restado {
     }
 
     /**
-     * @param $accessToken
-     * @param $homeid
+     * @param $access_token
+     * @param $home_id
      * @param $settings
      * @return mixed
      */
-    public function setHome($accessToken, $homeid, $settings) {
+    public function setHome($access_token, $home_id, $settings) {
         $provider = $this->getProvider();
 
         $options['body'] = json_encode($settings);
@@ -91,8 +91,8 @@ class Restado {
 
         $request = $provider->getAuthenticatedRequest(
             'PUT',
-            'https://my.tado.com/api/v2/homes/' . $homeid,
-            $accessToken,
+            'https://my.tado.com/api/v2/homes/' . $home_id,
+            $access_token,
             $options
         );
         $client = new \GuzzleHttp\Client();
