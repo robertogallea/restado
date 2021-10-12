@@ -48,7 +48,8 @@ Since the API is currently officially undocumented, if you are aware of methods 
     TADO_CLIENT_ID=<TADO_APP_ID>       // defaults to public-api-preview
     TADO_SECRET=<TADO_APP_SECRET_KEY>  // defaults to 4HJGRffVR8xb3XdEUQpjgZ1VplJi6Xgw                                                      
     TADO_USER=<TADO_USER>
-    TADO_PASS=<TADO_PASSWORD>  
+    TADO_PASS=<TADO_PASSWORD>
+    TADO_HOME_ID=<TADO_HOME_ID>
     ```
     
     
@@ -92,6 +93,7 @@ Currently these methods are supported:
 - authorize();
 - me($token);
 - getHome($token,$home_id);
+- setHome($access_token, $home_id, $settings);
 - getHomeWeather($token,$home_id);
 - getHomeDevices($token,$home_id);
 - getHomeInstallations($token,$home_id);
@@ -121,6 +123,8 @@ Currently these methods are supported:
 - setDazzle($accessToken, $homeid, $zoneid, $setting)
 - setOpenWindowDetection($accessToken, $homeid, $zoneid, $settings)
 - isAnyoneAtHome($access_token, $home_id);
+- getPresenceLock($access_token, $home_id);
+- setPresenceLock($access_token, $home_id, $settings);
 - getAppUsersRelativePositions($token)
 
 ## 6. Issues, Questions and Pull Requests
