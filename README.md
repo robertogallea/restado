@@ -48,7 +48,8 @@ Since the API is currently officially undocumented, if you are aware of methods 
     TADO_CLIENT_ID=<TADO_APP_ID>       // defaults to public-api-preview
     TADO_SECRET=<TADO_APP_SECRET_KEY>  // defaults to 4HJGRffVR8xb3XdEUQpjgZ1VplJi6Xgw                                                      
     TADO_USER=<TADO_USER>
-    TADO_PASS=<TADO_PASSWORD>  
+    TADO_PASS=<TADO_PASSWORD>
+    TADO_HOME_ID=<TADO_HOME_ID>
     ```
     
     
@@ -90,37 +91,41 @@ each method returns an object containing the data from the server. Currently the
 ## 5. Supported Methods
 Currently these methods are supported:
 - authorize();
-- me($access_token);
-- getHome($access_token,$home_id);
-- getHomeWeather($access_token,$home_id);
-- getHomeDevices($access_token,$home_id);
-- getHomeInstallations($access_token,$home_id);
-- getHomeUsers($access_token,$home_id);
-- getHomeMobileDevices($access_token,$home_id);
-- deleteHomeMobileDevice($access_token,$home_id,$mobile_device_id)
-- getHomeMobileDeviceSettings($access_token,$home_id,$mobile_device_id);
-- setHomeMobileDeviceSettings($access_token,$home_id,$mobile_device_id,$settings);
-- getHomeZones($access_token,$home_id);
-- getHomeZoneState($access_token,$home_id,$zone_id);
-- getHomeZoneDayReport($access_token,$home_id,$zone_id,date);
-- getHomeZoneCapabilities($access_token,$home_id,$zone_id);
-- getHomeZoneEarlyStart($access_token,$home_id,$zone_id);
-- setHomeZoneEarlyStart($access_token,$home_id,$zone_id,$settings);
-- getHomeZoneOverlay($access_token,$home_id,$zone_id);
-- setHomeZoneOverlay($access_token,$home_id,$zone_id,$settings);
-- deleteHomeZoneOverlay($access_token,$home_id,$zone_id);
-- getHomeZoneScheduleActiveTimetable($access_token,$home_id,$zone_id);
-- setHomeZoneScheduleActiveTimetable($access_token,$home_id,$zone_id,$settings);
-- getHomeZoneScheduleAway($access_token,$home_id,$zone_id);
-- setHomeZoneScheduleAway($access_token,$home_id,$zone_id,$settings);
-- getHomeZoneScheduleTimetableBlocks($access_token,$home_id,$zone_id,$timetable_id,$pattern=null);
-- setHomeZoneScheduleTimetableBlocks($access_token,$home_id,$zone_id,$timetable_id,$pattern,$settings);
-- identifyDevice($access_token,$device_id);        
-- getTemperatureOffset($access_token, $device_id);
-- setTemperatureOffset($access_token, $device_id, $settings);
-- setDazzle($access_token, $home_id, $zone_id, $setting);
-- setOpenWindowDetection($access_token, $home_id, $zone_id, $settings);
-- getAppUsersRelativePositions($access_token);
+- me($token);
+- getHome($token,$home_id);
+- setHome($access_token, $home_id, $settings);
+- getHomeWeather($token,$home_id);
+- getHomeDevices($token,$home_id);
+- getHomeInstallations($token,$home_id);
+- getHomeUsers($token,$home_id);
+- getHomeMobileDevices($token,$home_id);
+- deleteHomeMobileDevice(token,$home_id,$mobile_device_id)
+- getHomeMobileDeviceSettings($token,$home_id,$mobile_device_id);
+- setHomeMobileDeviceSettings($token,$home_id,$mobile_device_id,$settings)
+- getHomeZones($token,$home_id);
+- getHomeZoneState($token,$home_id,$zone_id);
+- getHomeZoneDayReport($token,$home_id,$zone_id,date);
+- getHomeZoneCapabilities($token,$home_id,$zone_id);
+- getHomeZoneEarlyStart($token,$home_id,$zone_id);
+- setHomeZoneEarlyStart($token,$home_id,$zone_id,$settings);
+- getHomeZoneOverlay($token,$home_id,$zone_id);
+- setHomeZoneOverlay($token,$home_id,$zone_id,$settings);
+- deleteHomeZoneOverlay($token,$home_id,$zone_id);
+- getHomeZoneScheduleActiveTimetable($token,$home_id,$zone_id);
+- setHomeZoneScheduleActiveTimetable($token,$home_id,$zone_id,$settings);
+- getHomeZoneScheduleAway($token,$home_id,$zone_id);
+- setHomeZoneScheduleAway($token,$home_id,$zone_id,$settings);
+- getHomeZoneScheduleTimetableBlocks($token,$home_id,$zone_id,$timetable_id,$pattern=null);
+- setHomeZoneScheduleTimetableBlocks($token,$home_id,$zone_id,$timetable_id,$pattern,$settings);
+- identifyDevice($token,$device_id);        
+- getTemperatureOffset($accessToken, $deviceid)
+- setTemperatureOffset($accessToken, $deviceid, $settings)
+- setDazzle($accessToken, $homeid, $zoneid, $setting)
+- setOpenWindowDetection($accessToken, $homeid, $zoneid, $settings)
+- isAnyoneAtHome($access_token, $home_id);
+- getPresenceLock($access_token, $home_id);
+- setPresenceLock($access_token, $home_id, $settings);
+- getAppUsersRelativePositions($token)
 
 ## 6. Issues, Questions and Pull Requests
 

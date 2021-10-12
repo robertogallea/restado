@@ -77,6 +77,28 @@ class Restado {
         return json_decode($response->getBody());
     }
 
+    /**
+     * @param $access_token
+     * @param $home_id
+     * @param $settings
+     * @return mixed
+     */
+    public function setHome($access_token, $home_id, $settings) {
+        $provider = $this->getProvider();
+
+        $options['body'] = json_encode($settings);
+        $options['headers']['content-type'] = 'application/json';
+
+        $request = $provider->getAuthenticatedRequest(
+            'PUT',
+            'https://my.tado.com/api/v2/homes/' . $home_id,
+            $access_token,
+            $options
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
 
     /**
      * @param $access_token
@@ -670,6 +692,66 @@ class Restado {
         return $response->getStatusCode() == 200;
     }
 
+    /**
+     * @param $access_token
+     * @param $home_id
+     * @return mixed
+     */
+    public function isAnyoneAtHome($access_token, $home_id) {
+        $provider = $this->getProvider();
+
+        $anyoneAtHome = false;
+
+        $homeUsers = $this->getHomeUsers($access_token, $home_id);
+        foreach($homeUsers as $homeUser) {
+            foreach($homeUser->mobileDevices as $device) {
+                $anyoneAtHome = $device->location->atHome == 1;
+            }
+        }
+
+        return $anyoneAtHome;
+    }
+  
+     /**
+     * @param $access_token
+     * @param $home_id
+     * @return mixed
+     */
+    public function getPresenceLock($access_token, $home_id) {
+        $provider = $this->getProvider();
+
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            'https://my.tado.com/api/v2/homes/' . $home_id . '/state',
+            $access_token
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+    
+    /**
+     * @param $access_token
+     * @param $home_id
+     * @param $settings
+     * @return mixed
+     */
+    public function setPresenceLock($access_token, $home_id, $settings) {
+        $provider = $this->getProvider();
+
+        $options['body'] = json_encode($settings);
+        $options['headers']['content-type'] = 'application/json';
+
+        $request = $provider->getAuthenticatedRequest(
+            'PUT',
+            'https://my.tado.com/api/v2/homes/' . $home_id . '/presenceLock',
+            $access_token,
+            $options
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
 
     /**
      * @return GenericProvider
