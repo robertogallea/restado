@@ -16,7 +16,7 @@ Since the API is currently officially undocumented, if you are aware of methods 
 
  1. [Installation](#1-installation)
  2. [Updating](#2-updating)
- 3. [Configuration] (#3-configuration)
+ 3. [Configuration](#3-configuration)
  4. [Usage](#4-usage)
  5. [Supported Methods](#5-supported-methods)
  6. [Issues, Questions and Pull Requests](#6-issues-questions-and-pull-requests)
