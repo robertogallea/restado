@@ -76,13 +76,13 @@ To use this package you should use the method of the Restado facade.
 1. Obtain a valid token for your session:
 
     ```php
-    $token = Restado::authorize();
+    $access_token = Restado::authorize();
     ``` 
     
 2. Use a method to get the related information, for example:
     
     ```php
-    $me = Restado::me($token);
+    $me = Restado::me($access_token);
     ```     
     
 each method returns an object containing the data from the server. Currently the API is not officially documented, the only reference I found is at this page: http://blog.scphillips.com/posts/2017/01/the-tado-api-v2/
