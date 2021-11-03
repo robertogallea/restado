@@ -60,12 +60,30 @@ class Restado {
     }
 
     /**
-     * @param $access_token
-     * @param $home_id
      * @return mixed
      */
-    public function getHome($access_token, $home_id) {
+    public function getHomeId() {
         $provider = $this->getProvider();
+        $access_token = $this->authorize();
+
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            'https://my.tado.com/api/v2/me',
+            $access_token
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        $decoded = json_decode($response->getBody());
+        return $decoded->homes[0]->id;
+    }
+
+    /**
+     * @param $access_token
+     * @return mixed
+     */
+    public function getHome($access_token) {
+        $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -79,12 +97,12 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $settings
      * @return mixed
      */
-    public function setHome($access_token, $home_id, $settings) {
+    public function setHome($access_token, $settings) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -102,11 +120,11 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @return mixed
      */
-    public function getHomeWeather($access_token, $home_id) {
+    public function getHomeWeather($access_token) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -120,11 +138,11 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @return mixed
      */
-    public function getHomeDevices($access_token, $home_id) {
+    public function getHomeDevices($access_token) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -138,11 +156,11 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @return mixed
      */
-    public function getHomeInstallations($access_token, $home_id) {
+    public function getHomeInstallations($access_token) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -156,11 +174,11 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @return mixed
      */
-    public function getHomeUsers($access_token, $home_id) {
+    public function getHomeUsers($access_token) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -174,11 +192,11 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @return mixed
      */
-    public function getHomeMobileDevices($access_token, $home_id) {
+    public function getHomeMobileDevices($access_token) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -192,12 +210,12 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $device_id
      * @return mixed
      */
-    public function deleteHomeMobileDevice($access_token, $home_id, $device_id) {
+    public function deleteHomeMobileDevice($access_token, $device_id) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'DELETE',
@@ -212,12 +230,12 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $device_id
      * @return mixed
      */
-    public function getHomeMobileDeviceSettings($access_token, $home_id, $device_id) {
+    public function getHomeMobileDeviceSettings($access_token, $device_id) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -231,13 +249,13 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $device_id
      * @param $settings
      * @return mixed
      */
-    public function setHomeMobileDeviceSettings($access_token, $home_id, $device_id, $settings) {
+    public function setHomeMobileDeviceSettings($access_token, $device_id, $settings) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -255,11 +273,11 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @return mixed
      */
-    public function getHomeZones($access_token, $home_id) {
+    public function getHomeZones($access_token) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -273,12 +291,12 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @return mixed
      */
-    public function getHomeZoneState($access_token, $home_id, $zone_id) {
+    public function getHomeZoneState($access_token, $zone_id) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -292,12 +310,12 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @return mixed
      */
-    public function getHomeZoneDayReport($access_token, $home_id, $zone_id, $date) {
+    public function getHomeZoneDayReport($access_token, $zone_id, $date) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -311,12 +329,12 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @return mixed
      */
-    public function getHomeZoneCapabilities($access_token, $home_id, $zone_id) {
+    public function getHomeZoneCapabilities($access_token, $zone_id) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -330,12 +348,12 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @return mixed
      */
-    public function getHomeZoneEarlyStart($access_token, $home_id, $zone_id) {
+    public function getHomeZoneEarlyStart($access_token, $zone_id) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -349,13 +367,13 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @param $settings
      * @return mixed
      */
-    public function setHomeZoneEarlyStart($access_token, $home_id, $zone_id, $settings) {
+    public function setHomeZoneEarlyStart($access_token, $zone_id, $settings) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -374,12 +392,12 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @return mixed
      */
-    public function getHomeZoneOverlay($access_token, $home_id, $zone_id) {
+    public function getHomeZoneOverlay($access_token, $zone_id) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -393,13 +411,13 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @param $settings
      * @return mixed
      */
-    public function setHomeZoneOverlay($access_token, $home_id, $zone_id, $settings) {
+    public function setHomeZoneOverlay($access_token, $zone_id, $settings) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -417,12 +435,12 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @return mixed
      */
-    public function deleteHomeZoneOverlay($access_token, $home_id, $zone_id) {
+    public function deleteHomeZoneOverlay($access_token, $zone_id) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'DELETE',
@@ -436,12 +454,12 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @return mixed
      */
-    public function getHomeZoneScheduleActiveTimetable($access_token, $home_id, $zone_id) {
+    public function getHomeZoneScheduleActiveTimetable($access_token, $zone_id) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -455,13 +473,13 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @param $settings
      * @return mixed
      */
-    public function setHomeZoneScheduleActiveTimetable($access_token, $home_id, $zone_id, $settings) {
+    public function setHomeZoneScheduleActiveTimetable($access_token, $zone_id, $settings) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -479,12 +497,12 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @return mixed
      */
-    public function getHomeZoneScheduleAway($access_token, $home_id, $zone_id) {
+    public function getHomeZoneScheduleAway($access_token, $zone_id) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -498,14 +516,13 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @param $settings
      * @return mixed
      */
-    public function setHomeZoneScheduleAway($access_token, $home_id, $zone_id, $settings) {
+    public function setHomeZoneScheduleAway($access_token, $zone_id, $settings) {
         $provider = $this->getProvider();
-
+        $home_id = $this->getHomeId();
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -523,14 +540,14 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @param $timetableid
      * @param null $daypattern
      * @return mixed
      */
-    public function getHomeZoneScheduleTimetableBlocks($access_token, $home_id, $zone_id, $timetableid, $daypattern=null) {
+    public function getHomeZoneScheduleTimetableBlocks($access_token, $zone_id, $timetableid, $daypattern=null) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -544,15 +561,15 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @param $timetableid
      * @param $daypattern
      * @param $settings
      * @return mixed
      */
-    public function setHomeZoneScheduleTimetableBlocks($access_token, $home_id, $zone_id, $timetableid, $daypattern, $settings) {
+    public function setHomeZoneScheduleTimetableBlocks($access_token, $zone_id, $timetableid, $daypattern, $settings) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -646,13 +663,13 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @param $setting
      * @return bool
      */
-    public function setDazzle($access_token, $home_id, $zone_id, $setting) {
+    public function setDazzle($access_token, $zone_id, $setting) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $options['body'] = json_encode(['enabled' => $setting]);
         $options['headers']['content-type'] = 'application/json';
@@ -670,13 +687,13 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @param $zone_id
      * @param $settings
      * @return bool
      */
-    public function setOpenWindowDetection($access_token, $home_id, $zone_id, $settings) {
+    public function setOpenWindowDetection($access_token, $zone_id, $settings) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -694,11 +711,11 @@ class Restado {
 
     /**
      * @param $access_token
-     * @param $home_id
      * @return mixed
      */
-    public function isAnyoneAtHome($access_token, $home_id) {
+    public function isAnyoneAtHome($access_token) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $anyoneAtHome = false;
 
@@ -714,11 +731,11 @@ class Restado {
   
      /**
      * @param $access_token
-     * @param $home_id
      * @return mixed
      */
-    public function getPresenceLock($access_token, $home_id) {
+    public function getPresenceLock($access_token) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -732,12 +749,12 @@ class Restado {
     
     /**
      * @param $access_token
-     * @param $home_id
      * @param $settings
      * @return mixed
      */
-    public function setPresenceLock($access_token, $home_id, $settings) {
+    public function setPresenceLock($access_token, $settings) {
         $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';

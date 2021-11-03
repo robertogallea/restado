@@ -92,39 +92,39 @@ each method returns an object containing the data from the server. Currently the
 Currently these methods are supported:
 - authorize();
 - me($token);
-- getHome($token,$home_id);
-- setHome($access_token, $home_id, $settings);
-- getHomeWeather($token,$home_id);
-- getHomeDevices($token,$home_id);
-- getHomeInstallations($token,$home_id);
-- getHomeUsers($token,$home_id);
-- getHomeMobileDevices($token,$home_id);
-- deleteHomeMobileDevice(token,$home_id,$mobile_device_id)
-- getHomeMobileDeviceSettings($token,$home_id,$mobile_device_id);
-- setHomeMobileDeviceSettings($token,$home_id,$mobile_device_id,$settings)
-- getHomeZones($token,$home_id);
-- getHomeZoneState($token,$home_id,$zone_id);
-- getHomeZoneDayReport($token,$home_id,$zone_id,date);
-- getHomeZoneCapabilities($token,$home_id,$zone_id);
-- getHomeZoneEarlyStart($token,$home_id,$zone_id);
-- setHomeZoneEarlyStart($token,$home_id,$zone_id,$settings);
-- getHomeZoneOverlay($token,$home_id,$zone_id);
-- setHomeZoneOverlay($token,$home_id,$zone_id,$settings);
-- deleteHomeZoneOverlay($token,$home_id,$zone_id);
-- getHomeZoneScheduleActiveTimetable($token,$home_id,$zone_id);
-- setHomeZoneScheduleActiveTimetable($token,$home_id,$zone_id,$settings);
-- getHomeZoneScheduleAway($token,$home_id,$zone_id);
-- setHomeZoneScheduleAway($token,$home_id,$zone_id,$settings);
-- getHomeZoneScheduleTimetableBlocks($token,$home_id,$zone_id,$timetable_id,$pattern=null);
-- setHomeZoneScheduleTimetableBlocks($token,$home_id,$zone_id,$timetable_id,$pattern,$settings);
+- getHome($token);
+- setHome($access_token, $settings);
+- getHomeWeather($token);
+- getHomeDevices($token);
+- getHomeInstallations($token);
+- getHomeUsers($token);
+- getHomeMobileDevices($token);
+- deleteHomeMobileDevice(token,$mobile_device_id)
+- getHomeMobileDeviceSettings($token,$mobile_device_id);
+- setHomeMobileDeviceSettings($token,$mobile_device_id,$settings)
+- getHomeZones($token);
+- getHomeZoneState($token,$zone_id);
+- getHomeZoneDayReport($token,$zone_id,date);
+- getHomeZoneCapabilities($token,$zone_id);
+- getHomeZoneEarlyStart($token,$zone_id);
+- setHomeZoneEarlyStart($token,$zone_id,$settings);
+- getHomeZoneOverlay($token,$zone_id);
+- setHomeZoneOverlay($token,$zone_id,$settings);
+- deleteHomeZoneOverlay($token,$zone_id);
+- getHomeZoneScheduleActiveTimetable($token,$zone_id);
+- setHomeZoneScheduleActiveTimetable($token,$zone_id,$settings);
+- getHomeZoneScheduleAway($token,$zone_id);
+- setHomeZoneScheduleAway($token,$zone_id,$settings);
+- getHomeZoneScheduleTimetableBlocks($token,$zone_id,$timetable_id,$pattern=null);
+- setHomeZoneScheduleTimetableBlocks($token,$zone_id,$timetable_id,$pattern,$settings);
 - identifyDevice($token,$device_id);        
 - getTemperatureOffset($accessToken, $deviceid)
 - setTemperatureOffset($accessToken, $deviceid, $settings)
-- setDazzle($accessToken, $homeid, $zoneid, $setting)
-- setOpenWindowDetection($accessToken, $homeid, $zoneid, $settings)
-- isAnyoneAtHome($access_token, $home_id);
-- getPresenceLock($access_token, $home_id);
-- setPresenceLock($access_token, $home_id, $settings);
+- setDazzle($accessToken, $zoneid, $setting)
+- setOpenWindowDetection($accessToken, $zoneid, $settings)
+- isAnyoneAtHome($access_token);
+- getPresenceLock($access_token);
+- setPresenceLock($access_token, $settings);
 - getAppUsersRelativePositions($token)
 
 ## 6. Issues, Questions and Pull Requests
