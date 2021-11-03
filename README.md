@@ -82,7 +82,7 @@ To use this package you should use the method of the Restado facade.
 2. Use a method to get the related information, for example:
     
     ```php
-    $me = Restado::me($access_token);
+    $me = Restado::me();
     ```     
     
 each method returns an object containing the data from the server. Currently the API is not officially documented, the only reference I found is at this page: http://blog.scphillips.com/posts/2017/01/the-tado-api-v2/
@@ -91,41 +91,41 @@ each method returns an object containing the data from the server. Currently the
 ## 5. Supported Methods
 Currently these methods are supported:
 - authorize();
-- me($token);
-- getHome($token,$home_id);
-- setHome($access_token, $home_id, $settings);
-- getHomeWeather($token,$home_id);
-- getHomeDevices($token,$home_id);
-- getHomeInstallations($token,$home_id);
-- getHomeUsers($token,$home_id);
-- getHomeMobileDevices($token,$home_id);
+- me();
+- getHome($home_id);
+- setHome($home_id, $settings);
+- getHomeWeather($home_id);
+- getHomeDevices($home_id);
+- getHomeInstallations($home_id);
+- getHomeUsers($home_id);
+- getHomeMobileDevices($home_id);
 - deleteHomeMobileDevice(token,$home_id,$mobile_device_id)
-- getHomeMobileDeviceSettings($token,$home_id,$mobile_device_id);
-- setHomeMobileDeviceSettings($token,$home_id,$mobile_device_id,$settings)
-- getHomeZones($token,$home_id);
-- getHomeZoneState($token,$home_id,$zone_id);
-- getHomeZoneDayReport($token,$home_id,$zone_id,date);
-- getHomeZoneCapabilities($token,$home_id,$zone_id);
-- getHomeZoneEarlyStart($token,$home_id,$zone_id);
-- setHomeZoneEarlyStart($token,$home_id,$zone_id,$settings);
-- getHomeZoneOverlay($token,$home_id,$zone_id);
-- setHomeZoneOverlay($token,$home_id,$zone_id,$settings);
-- deleteHomeZoneOverlay($token,$home_id,$zone_id);
-- getHomeZoneScheduleActiveTimetable($token,$home_id,$zone_id);
-- setHomeZoneScheduleActiveTimetable($token,$home_id,$zone_id,$settings);
-- getHomeZoneScheduleAway($token,$home_id,$zone_id);
-- setHomeZoneScheduleAway($token,$home_id,$zone_id,$settings);
-- getHomeZoneScheduleTimetableBlocks($token,$home_id,$zone_id,$timetable_id,$pattern=null);
-- setHomeZoneScheduleTimetableBlocks($token,$home_id,$zone_id,$timetable_id,$pattern,$settings);
-- identifyDevice($token,$device_id);        
-- getTemperatureOffset($accessToken, $deviceid)
-- setTemperatureOffset($accessToken, $deviceid, $settings)
-- setDazzle($accessToken, $homeid, $zoneid, $setting)
-- setOpenWindowDetection($accessToken, $homeid, $zoneid, $settings)
-- isAnyoneAtHome($access_token, $home_id);
-- getPresenceLock($access_token, $home_id);
-- setPresenceLock($access_token, $home_id, $settings);
-- getAppUsersRelativePositions($token)
+- getHomeMobileDeviceSettings($home_id,$mobile_device_id);
+- setHomeMobileDeviceSettings($home_id,$mobile_device_id,$settings)
+- getHomeZones($home_id);
+- getHomeZoneState($home_id,$zone_id);
+- getHomeZoneDayReport($home_id,$zone_id,date);
+- getHomeZoneCapabilities($home_id,$zone_id);
+- getHomeZoneEarlyStart($home_id,$zone_id);
+- setHomeZoneEarlyStart($home_id,$zone_id,$settings);
+- getHomeZoneOverlay($home_id,$zone_id);
+- setHomeZoneOverlay($home_id,$zone_id,$settings);
+- deleteHomeZoneOverlay($home_id,$zone_id);
+- getHomeZoneScheduleActiveTimetable($home_id,$zone_id);
+- setHomeZoneScheduleActiveTimetable($home_id,$zone_id,$settings);
+- getHomeZoneScheduleAway($home_id,$zone_id);
+- setHomeZoneScheduleAway($home_id,$zone_id,$settings);
+- getHomeZoneScheduleTimetableBlocks($home_id,$zone_id,$timetable_id,$pattern=null);
+- setHomeZoneScheduleTimetableBlocks($home_id,$zone_id,$timetable_id,$pattern,$settings);
+- identifyDevice($device_id);        
+- getTemperatureOffset($device_id)
+- setTemperatureOffset($device_id, $settings)
+- setDazzle($homeid, $zoneid, $setting)
+- setOpenWindowDetection($homeid, $zoneid, $settings)
+- isAnyoneAtHome($home_id);
+- getPresenceLock($home_id);
+- setPresenceLock($home_id, $settings);
+- getAppUsersRelativePositions()
 
 ## 6. Issues, Questions and Pull Requests
 
