@@ -311,6 +311,7 @@ class Restado {
     /**
      * @param $access_token
      * @param $zone_id
+     * @param $date
      * @return mixed
      */
     public function getHomeZoneDayReport($access_token, $zone_id, $date) {
