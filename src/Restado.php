@@ -771,6 +771,29 @@ class Restado {
     }
 
     /**
+     * @param $access_token
+     * @param $settings
+     * @return mixed
+     */
+    public function addEnergyIQMeterReading($access_token, $settings) {
+        $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
+
+        $options['body'] = json_encode($settings);
+        $options['headers']['content-type'] = 'application/json';
+
+        $request = $provider->getAuthenticatedRequest(
+            'PUT',
+            'https://energy-insights.tado.com/api/homes/' .  $home_id . '/meterReadings',
+            $access_token,
+            $options
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+
+    /**
      * @return GenericProvider
      */
     private function getProvider() {
