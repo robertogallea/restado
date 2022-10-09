@@ -783,7 +783,7 @@ class Restado {
         $options['headers']['content-type'] = 'application/json';
 
         $request = $provider->getAuthenticatedRequest(
-            'PUT',
+            'POST',
             'https://energy-insights.tado.com/api/homes/' .  $home_id . '/meterReadings',
             $access_token,
             $options
