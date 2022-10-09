@@ -125,6 +125,7 @@ Currently these methods are supported:
 - isAnyoneAtHome($access_token);
 - getPresenceLock($access_token);
 - setPresenceLock($access_token, $settings);
+- deleteEnergyIQMeterReading($access_token, $reading_id);
 - getAppUsersRelativePositions($token)
 
 ## 6. Issues, Questions and Pull Requests
