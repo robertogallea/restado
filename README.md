@@ -125,7 +125,11 @@ Currently these methods are supported:
 - isAnyoneAtHome($access_token);
 - getPresenceLock($access_token);
 - setPresenceLock($access_token, $settings);
+- getEnergySavingsReport($access_token, $year, $month, $country_code);
 - getAppUsersRelativePositions($token)
+
+# Country code format for getEnergySavingsReport
+To request an energy savings report via getEnergySavingsReport, you're required to pass a three-letter country code in accordance with [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)
 
 ## 6. Issues, Questions and Pull Requests
 

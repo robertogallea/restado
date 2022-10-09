@@ -771,6 +771,27 @@ class Restado {
     }
 
     /**
+     * @param $access_token
+     * @param $year
+     * @param $month
+     * @param $country_code
+     * @return mixed
+     */
+    public function getEnergySavingsReport($access_token, $year, $month, $country_code) {
+        $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
+
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            'https://energy-bob.tado.com/' .  $home_id . '/' . $year . '-' . $month . '?country=' . $country_code,
+            $access_token
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+    
+    /**
      * @return GenericProvider
      */
     private function getProvider() {
