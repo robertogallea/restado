@@ -125,6 +125,7 @@ Currently these methods are supported:
 - isAnyoneAtHome($access_token);
 - getPresenceLock($access_token);
 - setPresenceLock($access_token, $settings);
+- deleteEnergyIQMeterReading($access_token, $reading_id);
 - addEnergyIQMeterReading($access_token, $settings);
 - updateEnergyIQTariff($access_token, $settings);
 - getEnergyIQMeterReadings($access_token);

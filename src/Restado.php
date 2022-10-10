@@ -878,6 +878,25 @@ class Restado {
     }
 
     /**
+     * @param $access_token
+     * @param $reading_id
+     * @return mixed
+     */
+    public function deleteEnergyIQMeterReading($access_token, $reading_id) {
+        $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
+
+        $request = $provider->getAuthenticatedRequest(
+            'DELETE',
+            'https://energy-insights.tado.com/api/homes/' .  $home_id . '/meterReadings/' . $reading_id,
+            $access_token
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+
+    /**
      * @return GenericProvider
      */
     private function getProvider() {
