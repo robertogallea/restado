@@ -776,9 +776,9 @@ class Restado {
         $response = $client->send($request);
         return json_decode($response->getBody());
     }
-
+             
     /**
-     * @param $access_token
+     * @param $access_token           
      * @return mixed
      */
     public function getEnergyIQ($access_token) {
@@ -830,6 +830,29 @@ class Restado {
         $response = $client->send($request);
         return json_decode($response->getBody());
     }
+    
+    /**
+     * @param $access_token
+     * @param $settings
+     * @return mixed
+     */
+    public function updateEnergyIQTariff($access_token, $settings) {
+        $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
+
+        $options['body'] = json_encode($settings);
+        $options['headers']['content-type'] = 'application/json';
+
+        $request = $provider->getAuthenticatedRequest(
+            'PUT',
+            'https://energy-insights.tado.com/api/homes/' .  $home_id . '/tariff',
+            $access_token,
+            $options
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());            
+     }
 
     /**
      * @return GenericProvider
