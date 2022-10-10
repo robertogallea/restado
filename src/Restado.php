@@ -714,7 +714,7 @@ class Restado {
      * @return mixed
      */
     public function isAnyoneAtHome($access_token) {
-        $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
 
         $anyoneAtHome = false;
         $homeCount = 0;
