@@ -141,15 +141,13 @@ Currently these methods are supported:
 - getPresenceLock($access_token);
 - setPresenceLock($access_token, $settings);
 
-### Energy IQ
+### Energy IQ & savings reports
 - deleteEnergyIQMeterReading($access_token, $reading_id);
 - addEnergyIQMeterReading($access_token, $settings);
 - updateEnergyIQTariff($access_token, $settings);
 - getEnergyIQMeterReadings($access_token);
 - getEnergyIQTariff($access_token);
 - getEnergyIQ($access_token);
-
-### Energy Savings Report
 - getEnergySavingsReport($access_token, $year, $month, $country_code);
 > To request an energy savings report via getEnergySavingsReport, you're required to pass a three-letter country code in accordance with [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)
 
