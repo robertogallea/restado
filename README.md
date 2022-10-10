@@ -126,6 +126,9 @@ Currently these methods are supported:
 - getPresenceLock($access_token);
 - setPresenceLock($access_token, $settings);
 - updateEnergyIQTariff($access_token, $settings);
+- getEnergyIQMeterReadings($access_token);
+- getEnergyIQTariff($access_token);
+- getEnergyIQ($access_token);
 - getAppUsersRelativePositions($token)
 
 ## 6. Issues, Questions and Pull Requests
