@@ -90,18 +90,28 @@ each method returns an object containing the data from the server. Currently the
  
 ## 5. Supported Methods
 Currently these methods are supported:
+
+### Authorisation
 - authorize();
 - me($token);
+
+### Home data
 - getHome($token);
 - setHome($access_token, $settings);
 - getHomeWeather($token);
 - getHomeDevices($token);
 - getHomeInstallations($token);
 - getHomeUsers($token);
+
+### Mobile devices
 - getHomeMobileDevices($token);
 - deleteHomeMobileDevice(token,$mobile_device_id)
 - getHomeMobileDeviceSettings($token,$mobile_device_id);
 - setHomeMobileDeviceSettings($token,$mobile_device_id,$settings)
+- identifyDevice($token,$device_id);
+- getAppUsersRelativePositions($token)
+
+### Home zones
 - getHomeZones($token);
 - getHomeZoneState($token,$zone_id);
 - getHomeZoneDayReport($token,$zone_id,date);
@@ -117,25 +127,31 @@ Currently these methods are supported:
 - setHomeZoneScheduleAway($token,$zone_id,$settings);
 - getHomeZoneScheduleTimetableBlocks($token,$zone_id,$timetable_id,$pattern=null);
 - setHomeZoneScheduleTimetableBlocks($token,$zone_id,$timetable_id,$pattern,$settings);
-- identifyDevice($token,$device_id);        
+
+### Temperature offset
 - getTemperatureOffset($accessToken, $deviceid)
 - setTemperatureOffset($accessToken, $deviceid, $settings)
 - setDazzle($accessToken, $zoneid, $setting)
+
+### Open window detection
 - setOpenWindowDetection($accessToken, $zoneid, $settings)
+
+### Presence detection
 - isAnyoneAtHome($access_token);
 - getPresenceLock($access_token);
 - setPresenceLock($access_token, $settings);
-- getEnergySavingsReport($access_token, $year, $month, $country_code);
+
+### Energy IQ
 - deleteEnergyIQMeterReading($access_token, $reading_id);
 - addEnergyIQMeterReading($access_token, $settings);
 - updateEnergyIQTariff($access_token, $settings);
 - getEnergyIQMeterReadings($access_token);
 - getEnergyIQTariff($access_token);
 - getEnergyIQ($access_token);
-- getAppUsersRelativePositions($token)
 
-# Country code format for getEnergySavingsReport
-To request an energy savings report via getEnergySavingsReport, you're required to pass a three-letter country code in accordance with [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)
+### Energy Savings Report
+- getEnergySavingsReport($access_token, $year, $month, $country_code);
+> To request an energy savings report via getEnergySavingsReport, you're required to pass a three-letter country code in accordance with [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)
 
 ## 6. Issues, Questions and Pull Requests
 
