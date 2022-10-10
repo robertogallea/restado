@@ -126,6 +126,12 @@ Currently these methods are supported:
 - getPresenceLock($access_token);
 - setPresenceLock($access_token, $settings);
 - getEnergySavingsReport($access_token, $year, $month, $country_code);
+- deleteEnergyIQMeterReading($access_token, $reading_id);
+- addEnergyIQMeterReading($access_token, $settings);
+- updateEnergyIQTariff($access_token, $settings);
+- getEnergyIQMeterReadings($access_token);
+- getEnergyIQTariff($access_token);
+- getEnergyIQ($access_token);
 - getAppUsersRelativePositions($token)
 
 # Country code format for getEnergySavingsReport
