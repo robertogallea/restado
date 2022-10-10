@@ -90,52 +90,66 @@ each method returns an object containing the data from the server. Currently the
  
 ## 5. Supported Methods
 Currently these methods are supported:
+
+### Authorisation
 - authorize();
-- me($token);
-- getHome($token);
+- me($access_token);
+
+### Home and device data
+- getHome($access_token);
 - setHome($access_token, $settings);
-- getHomeWeather($token);
-- getHomeDevices($token);
-- getHomeInstallations($token);
-- getHomeUsers($token);
-- getHomeMobileDevices($token);
-- deleteHomeMobileDevice(token,$mobile_device_id)
-- getHomeMobileDeviceSettings($token,$mobile_device_id);
-- setHomeMobileDeviceSettings($token,$mobile_device_id,$settings)
-- getHomeZones($token);
-- getHomeZoneState($token,$zone_id);
-- getHomeZoneDayReport($token,$zone_id,date);
-- getHomeZoneCapabilities($token,$zone_id);
-- getHomeZoneEarlyStart($token,$zone_id);
-- setHomeZoneEarlyStart($token,$zone_id,$settings);
-- getHomeZoneOverlay($token,$zone_id);
-- setHomeZoneOverlay($token,$zone_id,$settings);
-- deleteHomeZoneOverlay($token,$zone_id);
-- getHomeZoneScheduleActiveTimetable($token,$zone_id);
-- setHomeZoneScheduleActiveTimetable($token,$zone_id,$settings);
-- getHomeZoneScheduleAway($token,$zone_id);
-- setHomeZoneScheduleAway($token,$zone_id,$settings);
-- getHomeZoneScheduleTimetableBlocks($token,$zone_id,$timetable_id,$pattern=null);
-- setHomeZoneScheduleTimetableBlocks($token,$zone_id,$timetable_id,$pattern,$settings);
-- identifyDevice($token,$device_id);        
-- getTemperatureOffset($accessToken, $deviceid)
-- setTemperatureOffset($accessToken, $deviceid, $settings)
-- setDazzle($accessToken, $zoneid, $setting)
-- setOpenWindowDetection($accessToken, $zoneid, $settings)
+- getHomeWeather($access_token);
+- getHomeDevices($access_token);
+- getHomeInstallations($access_token);
+- getHomeUsers($access_token);
+- setDazzle($access_token, $zone_id, $setting);
+
+### Mobile devices
+- getHomeMobileDevices($access_token);
+- deleteHomeMobileDevice(token, $mobile_device_id);
+- getHomeMobileDeviceSettings($access_token, $mobile_device_id);
+- setHomeMobileDeviceSettings($access_token, $mobile_device_id, $settings);
+- identifyDevice($access_token, $device_id);
+- getAppUsersRelativePositions($access_token);
+
+### Home zones
+- getHomeZones($access_token);
+- getHomeZoneState($access_token, $zone_id);
+- getHomeZoneDayReport($access_token, $zone_id, $date);
+- getHomeZoneCapabilities($access_token, $zone_id);
+- getHomeZoneEarlyStart($access_token, $zone_id);
+- setHomeZoneEarlyStart($access_token, $zone_id, $settings);
+- getHomeZoneOverlay($access_token, $zone_id);
+- setHomeZoneOverlay($access_token, $zone_id, $settings);
+- deleteHomeZoneOverlay($access_token, $zone_id);
+- getHomeZoneScheduleActiveTimetable($access_token, $zone_id);
+- setHomeZoneScheduleActiveTimetable($access_token, $zone_id, $settings);
+- getHomeZoneScheduleAway($access_token, $zone_id);
+- setHomeZoneScheduleAway($access_token, $zone_id, $settings);
+- getHomeZoneScheduleTimetableBlocks($access_token, $zone_id, $timetable_id, $pattern=null);
+- setHomeZoneScheduleTimetableBlocks($access_token, $zone_id, $timetable_id, $pattern, $settings);
+
+### Temperature offset
+- getTemperatureOffset($access_token, $device_id);
+- setTemperatureOffset($access_token, $device_id, $settings);
+
+### Open window detection
+- setOpenWindowDetection($access_token, $zone_id, $settings);
+
+### Presence detection
 - isAnyoneAtHome($access_token);
 - getPresenceLock($access_token);
 - setPresenceLock($access_token, $settings);
-- getEnergySavingsReport($access_token, $year, $month, $country_code);
+
+### Energy IQ & savings reports
 - deleteEnergyIQMeterReading($access_token, $reading_id);
 - addEnergyIQMeterReading($access_token, $settings);
 - updateEnergyIQTariff($access_token, $settings);
 - getEnergyIQMeterReadings($access_token);
 - getEnergyIQTariff($access_token);
 - getEnergyIQ($access_token);
-- getAppUsersRelativePositions($token)
-
-# Country code format for getEnergySavingsReport
-To request an energy savings report via getEnergySavingsReport, you're required to pass a three-letter country code in accordance with [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)
+- getEnergySavingsReport($access_token, $year, $month, $country_code);
+> To request an energy savings report via getEnergySavingsReport, you're required to pass a three-letter country code in accordance with [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)
 
 ## 6. Issues, Questions and Pull Requests
 
