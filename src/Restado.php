@@ -311,6 +311,7 @@ class Restado {
     /**
      * @param $access_token
      * @param $zone_id
+     * @param $date
      * @return mixed
      */
     public function getHomeZoneDayReport($access_token, $zone_id, $date) {
@@ -714,21 +715,27 @@ class Restado {
      * @return mixed
      */
     public function isAnyoneAtHome($access_token) {
-        $provider = $this->getProvider();
         $home_id = $this->getHomeId();
 
         $anyoneAtHome = false;
+        $homeCount = 0;
 
-        $homeUsers = $this->getHomeUsers($access_token, $home_id);
+        $homeUsers = $this->getHomeUsers($access_token);
         foreach($homeUsers as $homeUser) {
             foreach($homeUser->mobileDevices as $device) {
-                $anyoneAtHome = $device->location->atHome == 1;
+                if($device->location->atHome) {
+                    $homeCount++;
+                }
             }
         }
 
+        if ($homeCount > 0) {
+            $anyoneAtHome = true;
+        }
+
         return $anyoneAtHome;
-    }
-  
+        }
+
      /**
      * @param $access_token
      * @return mixed
@@ -762,6 +769,106 @@ class Restado {
         $request = $provider->getAuthenticatedRequest(
             'PUT',
             'https://my.tado.com/api/v2/homes/' . $home_id . '/presenceLock',
+            $access_token,
+            $options
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+             
+    /**
+     * @param $access_token           
+     * @return mixed
+     */
+    public function getEnergyIQ($access_token) {
+        $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
+
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            'https://energy-insights.tado.com/api/homes/' .  $home_id . '/consumption',
+            $access_token
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+    
+    /**
+     * @param $access_token
+     * @return mixed
+     */
+    public function getEnergyIQMeterReadings($access_token) {
+        $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
+
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            'https://energy-insights.tado.com/api/homes/' .  $home_id . '/meterReadings',
+            $access_token
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }    
+    
+    /**
+     * @param $access_token
+     * @return mixed
+     */
+    public function getEnergyIQTariff($access_token) {
+        $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
+
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            'https://energy-insights.tado.com/api/homes/' .  $home_id . '/tariff',
+            $access_token
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+    
+    /**
+     * @param $access_token
+     * @param $settings
+     * @return mixed
+     */
+    public function updateEnergyIQTariff($access_token, $settings) {
+        $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
+
+        $options['body'] = json_encode($settings);
+        $options['headers']['content-type'] = 'application/json';
+
+        $request = $provider->getAuthenticatedRequest(
+            'PUT',
+            'https://energy-insights.tado.com/api/homes/' .  $home_id . '/tariff',
+            $access_token,
+            $options
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());            
+     }
+
+    /**
+     * @param $access_token
+     * @param $settings
+     * @return mixed
+     */
+    public function addEnergyIQMeterReading($access_token, $settings) {
+        $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
+
+        $options['body'] = json_encode($settings);
+        $options['headers']['content-type'] = 'application/json';
+
+        $request = $provider->getAuthenticatedRequest(
+            'POST',
+            'https://energy-insights.tado.com/api/homes/' .  $home_id . '/meterReadings',
             $access_token,
             $options
         );
