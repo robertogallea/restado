@@ -311,6 +311,7 @@ class Restado {
     /**
      * @param $access_token
      * @param $zone_id
+     * @param $date
      * @return mixed
      */
     public function getHomeZoneDayReport($access_token, $zone_id, $date) {
@@ -714,21 +715,27 @@ class Restado {
      * @return mixed
      */
     public function isAnyoneAtHome($access_token) {
-        $provider = $this->getProvider();
         $home_id = $this->getHomeId();
 
         $anyoneAtHome = false;
+        $homeCount = 0;
 
-        $homeUsers = $this->getHomeUsers($access_token, $home_id);
+        $homeUsers = $this->getHomeUsers($access_token);
         foreach($homeUsers as $homeUser) {
             foreach($homeUser->mobileDevices as $device) {
-                $anyoneAtHome = $device->location->atHome == 1;
+                if($device->location->atHome) {
+                    $homeCount++;
+                }
             }
         }
 
+        if ($homeCount > 0) {
+            $anyoneAtHome = true;
+        }
+
         return $anyoneAtHome;
-    }
-  
+        }
+
      /**
      * @param $access_token
      * @return mixed
@@ -770,6 +777,24 @@ class Restado {
         return json_decode($response->getBody());
     }
 
+    /**
+     * @param $access_token
+     * @return mixed
+     */
+    public function getEnergyIQ($access_token) {
+        $provider = $this->getProvider();
+        $home_id = $this->getHomeId();
+
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            'https://energy-insights.tado.com/api/homes/' .  $home_id . '/consumption',
+            $access_token
+        );
+        $client = new \GuzzleHttp\Client();
+        $response = $client->send($request);
+        return json_decode($response->getBody());
+    }
+    
     /**
      * @param $access_token
      * @return mixed
