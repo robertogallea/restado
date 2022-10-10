@@ -718,17 +718,24 @@ class Restado {
         $home_id = $this->getHomeId();
 
         $anyoneAtHome = false;
+        $homeCount = 0;
 
         $homeUsers = $this->getHomeUsers($access_token, $home_id);
         foreach($homeUsers as $homeUser) {
             foreach($homeUser->mobileDevices as $device) {
-                $anyoneAtHome = $device->location->atHome == 1;
+                if($device->location->atHome) {
+                    $homeCount++;
+                }
             }
         }
 
+        if ($homeCount > 0) {
+            $anyoneAtHome = true;
+        }
+
         return $anyoneAtHome;
-    }
-  
+        }
+
      /**
      * @param $access_token
      * @return mixed
