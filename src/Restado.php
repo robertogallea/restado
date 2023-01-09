@@ -307,6 +307,24 @@ class Restado {
         $response = $client->send($request);
         return json_decode($response->getBody());
     }
+    
+    /**
+    * @param $access_token
+    * @param $home_id
+    * @return mixed
+    */
+   public function getHomeZoneStates($access_token, $home_id) {
+       $provider = $this->getProvider();
+
+       $request = $provider->getAuthenticatedRequest(
+           'GET',
+           'https://my.tado.com/api/v2/homes/' . $home_id . '/zoneStates',
+           $access_token
+       );
+       $client = new \GuzzleHttp\Client();
+       $response = $client->send($request);
+       return json_decode($response->getBody());
+   }
 
     /**
      * @param $access_token
