@@ -115,6 +115,7 @@ Currently these methods are supported:
 ### Home zones
 - getHomeZones($access_token);
 - getHomeZoneState($access_token, $zone_id);
+- getHomeZoneStates($access_token, $home_id);
 - getHomeZoneDayReport($access_token, $zone_id, $date);
 - getHomeZoneCapabilities($access_token, $zone_id);
 - getHomeZoneEarlyStart($access_token, $zone_id);
