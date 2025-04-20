@@ -939,12 +939,24 @@ class Restado {
      * @return GenericProvider
      */
     private function getProvider() {
+
+        if (config('tado.timeout') !== NULL) {
+          $timeout = config('tado.timeout');
+        } else {
+          // set a timeout based on PHP max_execution_time if not configured
+          // in case of an invalid max_execution_time (empty or FALSE) a default of 20s is being set
+          // in case of an valid max_execution_time the timeout is being set to 90% of this value with a maximum of 20s
+          $timeout = floor((int)ini_get('max_execution_time') * 0.9);
+          if (($timeout>20) or ($timeout<=0)) $timeout = 20;
+        }
+
         return new GenericProvider([
             'clientId'                => config('tado.clientId'),    // The client ID assigned to you by the provider
             'clientSecret'            => config('tado.clientSecret'),   // The client password assigned to you by the provider
             'urlAuthorize'            => 'https://auth.tado.com/oauth/authorize',
             'urlAccessToken'          => 'https://auth.tado.com/oauth/token',
             'urlResourceOwnerDetails' => null,
+            'timeout'                 => $timeout,
         ]);
     }
 }
