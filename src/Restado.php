@@ -16,6 +16,43 @@ use League\OAuth2\Client\Provider\GenericProvider;
  */
 class Restado {
 
+    protected $home_id;
+
+    /**
+     * Get a Verification Url
+     * for authorization based on RFC 8628
+     * this is required by tado starting on March 2025
+     *
+     * see also https://support.tado.com/en/articles/8565472-how-do-i-authenticate-to-access-the-rest-api
+     *          https://www.oauth.com/oauth2-servers/device-flow/token-request/
+     *
+     * @return url
+     */
+    public function getVerificationUrl()
+    {
+        $provider = $this->getProvider();
+
+        // from https://stackoverflow.com/questions/52718933/making-post-request-with-thephpleague-oauth2-client
+
+        $requestUrl = 'https://login.tado.com/oauth2/device_authorize';
+        $postData = [
+            'client_id' => config('tado.clientId'),
+            'scope' => 'offline_access',
+        ];
+        $options = [
+            'body' => http_build_query($postData),
+            'headers' => [
+                'Content-Type' => 'application/x-www-form-urlencoded',
+            ],
+        ];
+
+        $request = $provider->getRequest("POST", $requestUrl, $options);
+        $response = $provider->getParsedResponse($request);
+
+        if (!isset($response['verification_uri_complete'])) return FALSE;
+        return $response;
+    }
+
     /**
      * @param array $data
      * @return \League\OAuth2\Client\Token\AccessToken
@@ -26,11 +63,9 @@ class Restado {
 
         try {
 
-            // Try to get an access token using the resource owner password credentials grant.
-            $access_token = $provider->getAccessToken('password', [
-                'username' =>config('tado.username'),
-                'password' => config('tado.password'),
-                'scope' => 'home.user',
+            // Try to get an access token using the device code.
+            $access_token = $provider->getAccessToken('device_code', [
+                'device_code' => $data['device_code'],
             ]);
             return $access_token;
 
@@ -38,6 +73,26 @@ class Restado {
 
             // Failed to get the access token
             exit($e->getMessage());
+
+        }
+    }
+
+    public function refreshToken($data) {
+        $provider = $this->getProvider();
+
+        try {
+            $refreshed_token = $provider->getAccessToken('refresh_token', [
+                'client_id' => config('tado.clientId'),
+                'grant_type' => 'refresh_token',
+                'refresh_token' => $data['refresh_token'],
+            ]);
+            return $refreshed_token;
+
+        } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
+
+            // Failed to get the access token
+            $responseBody = $e->getResponseBody();
+            exit($responseBody['error_description']);
 
         }
     }
@@ -62,9 +117,12 @@ class Restado {
     /**
      * @return mixed
      */
-    public function getHomeId() {
+    public function getHomeId($access_token) {
+
+        // do caching....
+        if (isset($this->home_id)) return $this->home_id;
+
         $provider = $this->getProvider();
-        $access_token = $this->authorize();
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -74,7 +132,9 @@ class Restado {
         $client = new \GuzzleHttp\Client();
         $response = $client->send($request);
         $decoded = json_decode($response->getBody());
-        return $decoded->homes[0]->id;
+
+        $this->home_id = $decoded->homes[0]->id;
+        return $this->home_id;
     }
 
     /**
@@ -83,7 +143,7 @@ class Restado {
      */
     public function getHome($access_token) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -102,7 +162,7 @@ class Restado {
      */
     public function setHome($access_token, $settings) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -124,7 +184,7 @@ class Restado {
      */
     public function getHomeWeather($access_token) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -142,7 +202,7 @@ class Restado {
      */
     public function getHomeDevices($access_token) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -160,7 +220,7 @@ class Restado {
      */
     public function getHomeInstallations($access_token) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -178,7 +238,7 @@ class Restado {
      */
     public function getHomeUsers($access_token) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -196,7 +256,7 @@ class Restado {
      */
     public function getHomeMobileDevices($access_token) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -215,7 +275,7 @@ class Restado {
      */
     public function deleteHomeMobileDevice($access_token, $device_id) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'DELETE',
@@ -235,7 +295,7 @@ class Restado {
      */
     public function getHomeMobileDeviceSettings($access_token, $device_id) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -255,7 +315,7 @@ class Restado {
      */
     public function setHomeMobileDeviceSettings($access_token, $device_id, $settings) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -277,7 +337,7 @@ class Restado {
      */
     public function getHomeZones($access_token) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -296,7 +356,7 @@ class Restado {
      */
     public function getHomeZoneState($access_token, $zone_id) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -307,7 +367,7 @@ class Restado {
         $response = $client->send($request);
         return json_decode($response->getBody());
     }
-    
+
     /**
     * @param $access_token
     * @param $home_id
@@ -334,7 +394,7 @@ class Restado {
      */
     public function getHomeZoneDayReport($access_token, $zone_id, $date) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -353,7 +413,7 @@ class Restado {
      */
     public function getHomeZoneCapabilities($access_token, $zone_id) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -372,7 +432,7 @@ class Restado {
      */
     public function getHomeZoneEarlyStart($access_token, $zone_id) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -392,7 +452,7 @@ class Restado {
      */
     public function setHomeZoneEarlyStart($access_token, $zone_id, $settings) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -416,7 +476,7 @@ class Restado {
      */
     public function getHomeZoneOverlay($access_token, $zone_id) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -436,7 +496,7 @@ class Restado {
      */
     public function setHomeZoneOverlay($access_token, $zone_id, $settings) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -459,7 +519,7 @@ class Restado {
      */
     public function deleteHomeZoneOverlay($access_token, $zone_id) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'DELETE',
@@ -478,7 +538,7 @@ class Restado {
      */
     public function getHomeZoneScheduleActiveTimetable($access_token, $zone_id) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -498,7 +558,7 @@ class Restado {
      */
     public function setHomeZoneScheduleActiveTimetable($access_token, $zone_id, $settings) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -521,7 +581,7 @@ class Restado {
      */
     public function getHomeZoneScheduleAway($access_token, $zone_id) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -541,7 +601,7 @@ class Restado {
      */
     public function setHomeZoneScheduleAway($access_token, $zone_id, $settings) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -566,7 +626,7 @@ class Restado {
      */
     public function getHomeZoneScheduleTimetableBlocks($access_token, $zone_id, $timetableid, $daypattern=null) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -588,7 +648,7 @@ class Restado {
      */
     public function setHomeZoneScheduleTimetableBlocks($access_token, $zone_id, $timetableid, $daypattern, $settings) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -688,7 +748,7 @@ class Restado {
      */
     public function setDazzle($access_token, $zone_id, $setting) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $options['body'] = json_encode(['enabled' => $setting]);
         $options['headers']['content-type'] = 'application/json';
@@ -712,7 +772,7 @@ class Restado {
      */
     public function setOpenWindowDetection($access_token, $zone_id, $settings) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -733,7 +793,7 @@ class Restado {
      * @return mixed
      */
     public function isAnyoneAtHome($access_token) {
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $anyoneAtHome = false;
         $homeCount = 0;
@@ -760,7 +820,7 @@ class Restado {
      */
     public function getPresenceLock($access_token) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -771,7 +831,7 @@ class Restado {
         $response = $client->send($request);
         return json_decode($response->getBody());
     }
-    
+
     /**
      * @param $access_token
      * @param $settings
@@ -779,7 +839,7 @@ class Restado {
      */
     public function setPresenceLock($access_token, $settings) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -794,14 +854,14 @@ class Restado {
         $response = $client->send($request);
         return json_decode($response->getBody());
     }
-             
+
     /**
-     * @param $access_token           
+     * @param $access_token
      * @return mixed
      */
     public function getEnergyIQ($access_token) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -812,14 +872,14 @@ class Restado {
         $response = $client->send($request);
         return json_decode($response->getBody());
     }
-    
+
     /**
      * @param $access_token
      * @return mixed
      */
     public function getEnergyIQMeterReadings($access_token) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -829,15 +889,15 @@ class Restado {
         $client = new \GuzzleHttp\Client();
         $response = $client->send($request);
         return json_decode($response->getBody());
-    }    
-    
+    }
+
     /**
      * @param $access_token
      * @return mixed
      */
     public function getEnergyIQTariff($access_token) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -848,7 +908,7 @@ class Restado {
         $response = $client->send($request);
         return json_decode($response->getBody());
     }
-    
+
     /**
      * @param $access_token
      * @param $settings
@@ -856,7 +916,7 @@ class Restado {
      */
     public function updateEnergyIQTariff($access_token, $settings) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -869,7 +929,7 @@ class Restado {
         );
         $client = new \GuzzleHttp\Client();
         $response = $client->send($request);
-        return json_decode($response->getBody());            
+        return json_decode($response->getBody());
      }
 
     /**
@@ -879,7 +939,7 @@ class Restado {
      */
     public function addEnergyIQMeterReading($access_token, $settings) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $options['body'] = json_encode($settings);
         $options['headers']['content-type'] = 'application/json';
@@ -902,7 +962,7 @@ class Restado {
      */
     public function deleteEnergyIQMeterReading($access_token, $reading_id) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'DELETE',
@@ -923,7 +983,7 @@ class Restado {
      */
     public function getEnergySavingsReport($access_token, $year, $month, $country_code) {
         $provider = $this->getProvider();
-        $home_id = $this->getHomeId();
+        $home_id = $this->getHomeId($access_token);
 
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -934,7 +994,7 @@ class Restado {
         $response = $client->send($request);
         return json_decode($response->getBody());
     }
-    
+
     /**
      * @return GenericProvider
      */
@@ -952,9 +1012,8 @@ class Restado {
 
         return new GenericProvider([
             'clientId'                => config('tado.clientId'),    // The client ID assigned to you by the provider
-            'clientSecret'            => config('tado.clientSecret'),   // The client password assigned to you by the provider
-            'urlAuthorize'            => 'https://auth.tado.com/oauth/authorize',
-            'urlAccessToken'          => 'https://auth.tado.com/oauth/token',
+            'urlAuthorize'            => 'https://login.tado.com/oauth2/device_authorize',
+            'urlAccessToken'          => 'https://login.tado.com/oauth2/token',
             'urlResourceOwnerDetails' => null,
             'timeout'                 => $timeout,
         ]);
